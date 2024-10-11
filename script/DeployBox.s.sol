@@ -5,6 +5,7 @@ import {Script} from "forge-std/Script.sol";
 import {BoxV1} from "../src/BoxV1.sol";
 import {ERC1967Proxy} from "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol";
 
+// Actually, it deploy the proxy
 contract DeployBox is Script {
     function run() external returns (address) {
         address proxy = deployBox();
@@ -15,7 +16,7 @@ contract DeployBox is Script {
         vm.startBroadcast();
         BoxV1 box = new BoxV1();
         ERC1967Proxy proxy = new ERC1967Proxy(address(box), "");
-        BoxV1(address(proxy)).initialize();
+        BoxV1(address(proxy)).initialize(); // important
         vm.stopBroadcast();
         return address(proxy);
     }
